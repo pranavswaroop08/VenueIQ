@@ -1,128 +1,296 @@
-```markdown
-# 📡 VENUEIQ // LOGISTICS & INCIDENT REGISTRY
-> **RE-ENGINEERING MUNICIPAL TRANSIT CONFLICT RESOLUTION FOR THE 2026 WORLD CUP** > `Console Engine: v2.8.4-build-prod` // `Security Policy MD5: 8aef91cb27f8041c` // `Data Partition: Local Host Node 01`
+# VenueIQ
+
+> Autonomous Crisis Management for Large-Scale Sporting Events
+
+VenueIQ is an AI-powered stadium operations agent designed to help venue operators respond to real-time transit, infrastructure, and crowd-management incidents during major sporting events such as the FIFA World Cup.
+
+Built for the Google Cloud Rapid Agent Hackathon, VenueIQ combines Gemini-powered reasoning with Elastic-powered operational intelligence to move beyond dashboards and into actionable decision-making.
 
 ---
 
-## 🛰️ System Overview
+## Problem
 
-**VenueIQ** is a production-grade, secure, local-first incident command operations center optimized for high-density transit gridlock mitigation. 
+When a critical incident occurs near a stadium—such as a metro outage, transportation failure, security disruption, or crowd bottleneck—operations teams often rely on fragmented dashboards and manual coordination.
 
-VenueIQ strips away the AI hype in favor of a dry, hyper-functional administrative control center. By combining a low-latency **Streamlit** architecture with a localized **Elasticsearch** data layer, the platform orchestrates a high-performance reasoning loop over the **Model Context Protocol (MCP)**—safeguarding municipal infrastructure data while executing sub-second logistical routing overrides.
+This leads to:
 
+- Slow response times
+- Communication delays
+- Resource misallocation
+- Increased safety risks
+- Poor fan experience
 
+VenueIQ transforms incident response from reactive monitoring into proactive orchestration.
+
+---
+
+## Solution
+
+VenueIQ continuously analyzes operational data and recommends mitigation strategies in real time.
+
+When a disruption occurs, the agent:
+
+1. Detects the incident
+2. Analyzes event context
+3. Identifies available nearby resources
+4. Generates an optimized response plan
+5. Presents recommendations for operator approval
+6. Executes approved actions
+
+Human operators remain fully in control through a Human-In-The-Loop (HITL) approval workflow.
+
+---
+
+## Example Scenario
+
+### Metro Rail Power Failure
+
+A metro outage occurs near the stadium shortly before match completion.
+
+VenueIQ:
+
+- Detects the incident
+- Identifies affected gates and transport corridors
+- Analyzes expected crowd exit volumes
+- Locates available shuttle assets
+- Calculates rerouting capacity
+- Generates fan communication alerts
+- Presents deployment recommendations
+- Executes approved reroutes
+
+Result:
+
+- Reduced congestion
+- Faster evacuation flow
+- Improved fan safety
+- Reduced operational workload
+
+---
+
+## Architecture
+
+```text
+Operator Dashboard
+        │
+        ▼
+Google Gemini Agent
+        │
+        ▼
+Elastic MCP Server
+        │
+ ┌──────┼──────┐
+ ▼      ▼      ▼
+
+Incidents  Schedule  Logistics
+ Index      Index      Index
 ```
 
-```
-               [ Edge Node Exception Payload ]
-                              │
-                              ▼
+### Components
 
-```
+#### Frontend
 
-┌──────────────────────────────────────────────────────────────────┐
-│                     presentation workspace                       │
-│  - Real-Time Javascript Clock Matrix                             │
-│  - Crimson Anomaly Feed (Tailwind CSS Injection Layer)           │
-│  - Micro-Interaction Tactical Asset Card Interfaces              │
-└────────────────────────────────┬─────────────────────────────────┘
+- Streamlit Dashboard
+- Live Incident Feed
+- Human-In-The-Loop Queue
+- Agent Trace Viewer
+
+#### Agent Layer
+
+- Gemini Reasoning Engine
+- Multi-Step Planning
+- Operational Decision Support
+
+#### Data Layer
+
+Elasticsearch stores:
+
+- Incident telemetry
+- Match schedules
+- Transportation assets
+- Operational status
+
+#### MCP Layer
+
+Elastic MCP provides:
+
+- Search capabilities
+- Aggregation tools
+- Operational updates
+- Structured tool execution
+
+---
+
+## Core Features
+
+### Incident Detection
+
+Monitor active operational incidents.
+
+### Operational Reasoning
+
+Analyze venue conditions and resource availability.
+
+### Asset Discovery
+
+Identify nearby transportation and support assets.
+
+### Mitigation Planning
+
+Generate optimized response strategies.
+
+### Human-In-The-Loop Approval
+
+Require operator approval before execution.
+
+### Automated Execution
+
+Update operational systems after approval.
+
+---
+
+## Tech Stack
+
+### AI
+
+- Google Gemini
+- Google Cloud Agent Builder
+
+### Data
+
+- Elasticsearch
+- Elastic MCP Server
+
+### Frontend
+
+- Streamlit
+
+### Backend
+
+- Python
+
+### Infrastructure
+
+- Docker
+- Google Cloud Run
+
+---
+
+## Project Structure
+
+```text
+venueiq/
 │
-▼
-┌──────────────────────────────────────────────────────────────────┐
-│                   orchestration client core                      │
-│  - Model Context Protocol (MCP) Transport Interface              │
-│  - Multi-Index Vector Capability Resolution Pipeline             │
-└────────────────────────────────┬─────────────────────────────────┘
+├── app.py
+├── init_elastic.py
 │
-▼
-┌──────────────────────────────────────────────────────────────────┐
-│                    distributed storage node                      │
-│  - Local Cluster Node: https://localhost:9200                    │
-│  - Structural Indices: incidents // schedule // logistics       │
-└──────────────────────────────────────────────────────────────────┘
-
+├── agent/
+│   ├── venue_agent.py
+│   ├── planner.py
+│   └── prompts.py
+│
+├── elastic/
+│   ├── client.py
+│   ├── queries.py
+│   └── seed_data.py
+│
+├── data/
+│   ├── incidents.json
+│   ├── logistics.json
+│   └── schedule.json
+│
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## ⚡ Core Operational Features
+## Local Setup
 
-### 1. Model Context Protocol (MCP) Orchestration
-The engine decouples structural data stores from the analytical execution layer. Using standardized MCP transport mechanics, the background process treats local indices as safe runtime environments, executing precise data retrieval routines without exposing the underlying physical coordinates to public networks.
+### Clone Repository
 
-### 2. Human-in-the-Loop (HITL) Checkpoint Security
-Autonomous models shouldn't manipulate physical transport grids unsupervised. When an incident occurs, VenueIQ constructs a deterministic staging matrix, compiling recommended mitigations into responsive **Tactical Asset Cards**. State modifications are isolated until an operator signs off on the instruction payload.
+```bash
+git clone https://github.com/yourusername/venueiq.git
+cd venueiq
+```
 
-### 3. Client-Side Clock Calibration
-To eliminate server delays and prevent backend resource starvation, the primary system clock is offloaded to an asynchronous JavaScript runtime running natively in the client browser frame, providing fluid timestamp references independent of Python execution cycles.
+### Install Dependencies
 
----
-
-## 🗂️ Data Layer Architecture
-
-The local Elasticsearch system maintains three segregated, production-ready indices to structure high-volume operations:
-
-* **`worldcup-incidents`**: Time-series log tracking inbound environment exceptions and structural grid faults.
-* **`worldcup-schedule`**: Unified core metrics managing match profiles, stadium population constraints, and global scores.
-* **`worldcup-logistics`**: Live hardware asset registry monitoring transit shuttle availability and current routing states.
-
----
-
-## 🛠️ Environment Initialization & Setup
-
-### 1. System Dependencies
-Install the verified client binaries using the localized package registry:
 ```bash
 pip install -r requirements.txt
-
 ```
 
-### 2. Launch Local Storage Cluster
-
-Ensure your isolated database instance is live and monitoring traffic on the default secure port:
+### Start Elasticsearch
 
 ```bash
-# Execute within your local cluster binary partition
-.\bin\elasticsearch.bat
-
+curl -fsSL https://elastic.co/start-local | sh
 ```
 
-### 3. Initialize Production Indices
-
-Seed your local database indices with structural testing arrays before firing up the console:
+### Seed Mock Data
 
 ```bash
 python init_elastic.py
-
 ```
 
-### 4. Boot Up the Incident Command Interface
-
-Initialize the primary operations workspace layer:
+### Launch Dashboard
 
 ```bash
 streamlit run app.py
-
 ```
 
 ---
 
-## 🪵 Production Execution Walkthrough
+## Demo Workflow
 
-1. **Ingestion Loop:** The dashboard detects an active infrastructure threat: `SYS_ERR_9082` (BlueLine Interlocking Track Circuit Failure at the Century Blvd corridor).
-2. **MCP Tool Call:** The operator runs the routing sweep. The console hooks into the local Elastic node over the Model Context Protocol, querying the `worldcup-logistics` index for all vehicles flagged with a `STATE_IDLE` configuration.
-3. **Logistics Synthesis:** The engine evaluates asset logs, determines cumulative volume availability, and frames individual routing targets.
-4. **Operator Gateway Validation:** The strategy matrix maps structural solutions onto the UI as interactive tactical overrides.
-5. **State Mutation Commit:** Clicking the action primary key triggers an encrypted HTTPS POST transaction, mutating asset variables across the indices and logging a verified `CLUSTER_WRITE_ACK` banner.
+1. Open VenueIQ Dashboard
+2. Click "Simulate Crisis"
+3. Incident enters Elastic
+4. Agent analyzes impact
+5. Mitigation plan generated
+6. Human operator reviews plan
+7. Operator clicks Approve
+8. VenueIQ executes reroute strategy
 
 ---
 
-## 🏢 Administrative Metadata
+## Why VenueIQ?
 
-* **Maintainer Profile:** P. Swaroop (Undergraduate, PES University — Computer Science Division).
-* **Development Base:** Bengaluru, Karnataka.
-* **Compliance Classification:** Tier-1 Logistics System Override Registry.
+Traditional monitoring platforms tell operators what happened.
 
-```
+VenueIQ tells them:
 
-```
+- What is happening
+- Why it matters
+- What should be done next
+- Which actions should be executed
+
+VenueIQ turns operational data into operational decisions.
+
+---
+
+## Future Roadmap
+
+- Real-time GIS mapping
+- Multi-stadium coordination
+- Smart city integration
+- Emergency services dispatch
+- Fan notification systems
+- Predictive incident forecasting
+- Autonomous transportation orchestration
+
+---
+
+## Built For
+
+Google Cloud Rapid Agent Hackathon 2026
+
+Track:
+Elastic MCP Integration
+
+Theme:
+Building Agents for Real-World Challenges
+
+---
+
+## License
+
+MIT License
