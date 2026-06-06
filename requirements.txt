@@ -1,0 +1,18 @@
+# Core Dependencies
+streamlit>=1.28.0
+elasticsearch>=8.10.0
+python-dotenv>=1.0.0
+
+# Gemini AI Integration
+google-generativeai>=0.3.0
+
+# Utilities
+requests>=2.31.0
+pydantic>=2.0.0
+python-dateutil>=2.8.2
+
+# Development
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0
