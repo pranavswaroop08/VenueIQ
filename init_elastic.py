@@ -1,20 +1,16 @@
 import os
 import urllib3
 from elasticsearch import Elasticsearch
+from config import ES_HOST, ES_USER, ES_PASSWORD, ES_VERIFY_CERTS
 
 # Suppress self-signed certificate warnings for local development logs
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Your exact secure local parameters from your terminal setup
-ES_HOST = "https://localhost:9200"
-ES_USER = "elastic"
-ES_PASSWORD = "qUKn3=DHhkyrcYtr=sxj"
-
-# Initialize the secure local client instance
+# Initialize the secure local client instance using environment variables
 es = Elasticsearch(
     ES_HOST,
     basic_auth=(ES_USER, ES_PASSWORD),
-    verify_certs=False  # Required because the local auto-generated SSL cert is self-signed
+    verify_certs=ES_VERIFY_CERTS
 )
 
 def initialize_indices():
