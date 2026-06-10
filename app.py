@@ -1,17 +1,20 @@
+import os
+import time
 import streamlit as st
 from datetime import datetime, timezone
 from elasticsearch import Elasticsearch
 from agent_engine import run_venue_iq_agent, render_trace_stream
+import streamlit.components.v1 as components
 
 # Configure enterprise presentation frame
 st.set_page_config(layout="wide", page_title="VenueIQ // Incident Command Network", page_icon=None)
 
 # ─── Tailwind CDN + Enterprise Industrial Telemetry Design System ───────────
-st.markdown(
+components.html(
     """
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
+      window.tailwind.config = {
         theme: {
           extend: {
             colors: {
@@ -34,7 +37,13 @@ st.markdown(
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    """,
+    height=0,
+)
 
+# ─── Custom Global CSS Core Styles Engine ────────────────────────────────────
+st.markdown(
+    """
     <style>
       /* ── Streamlit chrome suppression ── */
       .stApp { background: #060A13 !important; }
@@ -386,12 +395,25 @@ st.markdown(
         color: #374151;
       }
       .trace-body { color: inherit; }
-      .trace-idle-pulse {
+      .idle-state {
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.72rem;
         color: #374151;
         text-align: center;
         padding: 2.5rem;
+        background: #0E131F;
+        border: 1px solid #1F2937;
+        border-radius: 6px;
+      }
+      .hitl-idle {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: #4B5563;
+        text-align: center;
+        padding: 2rem;
+        background: #0E131F;
+        border: 1px dashed #1F2937;
+        border-radius: 6px;
       }
 
       /* ── Tactical asset container grid ── */
@@ -482,6 +504,40 @@ st.markdown(
         flex-shrink: 0;
       }
 
+      /* ── Section block structures ── */
+      .section-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: #6B7280;
+        margin: 1.25rem 0 0.65rem 0;
+        text-transform: uppercase;
+      }
+
+      /* ── Subtitle administrative grime elements ── */
+      .admin-grime-wrapper {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        color: #374151;
+        line-height: 1.5;
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+        border-top: 1px dashed #1F2937;
+      }
+
+      .admin-profile-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        color: #4B5563;
+        background: #111827;
+        border: 1px solid #1F2937;
+        padding: 0.25rem 0.5rem;
+        border-radius: 3px;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+      }
+      
       /* ── System registry status update banner ── */
       @keyframes uplinkSlide {
         from { opacity: 0; transform: translateY(-10px); }
@@ -535,40 +591,6 @@ st.markdown(
         color: #4B5563;
         margin-left: auto;
       }
-
-      /* ── Section block structures ── */
-      .section-title {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        color: #6B7280;
-        margin: 1.25rem 0 0.65rem 0;
-        text-transform: uppercase;
-      }
-
-      /* ── Subtitle administrative grime elements ── */
-      .admin-grime-wrapper {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.68rem;
-        color: #374151;
-        line-height: 1.5;
-        margin-top: 1rem;
-        padding-top: 0.75rem;
-        border-top: 1px dashed #1F2937;
-      }
-
-      .admin-profile-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.68rem;
-        color: #4B5563;
-        background: #111827;
-        border: 1px solid #1F2937;
-        padding: 0.25rem 0.5rem;
-        border-radius: 3px;
-        display: inline-block;
-        margin-bottom: 0.5rem;
-      }
     </style>
     """,
     unsafe_allow_html=True,
@@ -585,7 +607,7 @@ if "uplink_success" not in st.session_state:
     st.session_state.uplink_success = False
 
 def render_tactical_cards(assets):
-    """Render HITL asset cards via st.html (avoids Markdown code-block escaping)."""
+    """Render HITL asset cards via st.html."""
     card_parts = []
     for asset in assets:
         card_parts.append(
@@ -645,8 +667,12 @@ TACTICAL_ASSETS = [
     },
 ]
 
-# Connect to secure local Elastic cluster using verified environment parameters
-es = Elasticsearch("https://localhost:9200", basic_auth=("elastic", "qUKn3=DHhkyrcYtr=sxj"), verify_certs=False)
+# 🔌 Swapped out hardcoded profile logic for verified, dynamic permanent ngrok target path mapping
+es = Elasticsearch(
+    os.getenv("ES_HOST", "https://badland-animating-approach.ngrok-free.dev"), 
+    basic_auth=(os.getenv("ES_USER", "elastic"), os.getenv("ES_PASSWORD", "0Oq5NHSuhINTYnB9ukVM")), 
+    verify_certs=False
+)
 
 # ─── System registry status update banner ─────────────────────────────────────
 if st.session_state.uplink_success:
@@ -667,7 +693,11 @@ if st.session_state.uplink_success:
     )
 
 # ─── Command header with sandboxed client JavaScript clock ──────────────────
+import os
 import streamlit.components.v1 as components
+
+# Pull the database target securely outside the f-string context
+es_node_target = os.getenv("ES_HOST", "https://badland-animating-approach.ngrok-free.dev")
 
 components.html(
     """
@@ -693,7 +723,7 @@ components.html(
         const seconds = String(now.getUTCSeconds()).padStart(2, '0');
         const clockEl = document.getElementById('live-system-clock');
         if (clockEl) {
-          clockEl.innerHTML = `SYSTEM_TIME: ${hours}:${minutes}:${seconds} UTC`;
+          clockEl.innerHTML = 'SYSTEM_TIME: ' + hours + ':' + minutes + ':' + seconds + ' UTC';
         }
       }
       setInterval(updateLiveClock, 1000);
@@ -762,10 +792,10 @@ with left_panel:
         # Administrative Grime Sidebar Anchorage
         st.markdown('<div class="admin-grime-wrapper">', unsafe_allow_html=True)
         st.markdown('<div class="admin-profile-badge">OPERATOR: P. SWAROOP (TIER-1 DISPATCH)</div>', unsafe_allow_html=True)
-        st.markdown("""
+        st.markdown(f"""
             Partition ID: Local Host Node 01<br>
             Security Policy MD5: 8aef91cb27f8041c<br>
-            Database Target: https://localhost:9200
+            Database Target: {os.getenv("ES_HOST", "https://badland-animating-approach.ngrok-free.dev")}
         """, unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
