@@ -5,6 +5,9 @@ python-dotenv>=1.0.0
 
 # Gemini AI Integration
 google-generativeai>=0.3.0
+google-auth>=2.25.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.2.0
 
 # Utilities
 requests>=2.31.0
