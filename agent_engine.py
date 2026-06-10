@@ -4,6 +4,7 @@ import streamlit as st
 from elasticsearch import Elasticsearch
 from google import genai
 from google.genai import types
+from dotenv import load_dotenv
 
 def render_trace_stream(trace_container, traces):
     """Re-render the full trace stream; newest block fades in smoothly."""
@@ -132,8 +133,9 @@ def run_venue_iq_agent(es_client, incident_doc, invoke_container=None, trace_con
 
     # 🌌 PHASE 4: Dynamic Gemini Reasoning Loop
     # Initialize your new static-key client architecture
-    ai_client = genai.Client()
-    model_id = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    api_key = st.secrets["GEMINI_API_KEY"]
+    ai_client = genai.Client(api_key=api_key)
+    model_id = st.secrets.get("GEMINI_MODEL", "gemini-2.0-flash")
 
     # Construct the structural prompt feeding your live cluster results into Gemini
     agent_prompt = f"""

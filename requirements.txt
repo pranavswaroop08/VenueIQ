@@ -1,20 +1,18 @@
-# Core Dependencies
-streamlit>=1.28.0
-elasticsearch>=8.10.0
+# ─── CORE DEPENDENCIES ────────────────────────────────────────────────
+streamlit>=1.35.0
+elasticsearch>=8.11.0
 python-dotenv>=1.0.0
 
-# Gemini AI Integration
-google-generativeai>=0.3.0
-google-auth>=2.25.0
-google-auth-oauthlib>=1.0.0
-google-auth-httplib2>=0.2.0
+# ─── GOOGLE GEMINI AI CONFIGURATION ──────────────────────────────────
+# This single package replaces google-generativeai and all old OAuth suites
+google-genai>=0.1.1
 
-# Utilities
+# ─── UTILITIES ────────────────────────────────────────────────────────
 requests>=2.31.0
-pydantic>=2.0.0
+pydantic>=2.5.0
 python-dateutil>=2.8.2
 
-# Development
+# ─── DEVELOPMENT & TESTING ───────────────────────────────────────────
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 black>=23.0.0
